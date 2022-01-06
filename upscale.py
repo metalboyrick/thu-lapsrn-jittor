@@ -4,6 +4,7 @@ import jittor as jt
 import jittor.transform as transform
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
 
 def upscale(name, factor):
 	img = cv2.imread(name, cv2.IMREAD_GRAYSCALE)
@@ -30,7 +31,9 @@ def upscale(name, factor):
 
 def main():
 	im = upscale("Bromo_2.jpg", 2)
-	return im
+	im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+	plt.imshow(im)
+	plt.show()
 
 if __name__ == "__main__":
 	main()
