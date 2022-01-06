@@ -21,11 +21,7 @@ def upscale(name, factor):
 	hi_res = jt.squeeze(HR_4x, 0)
 	hires_img = hi_res
 
-	hires_img
-
-	cv2.imshow("test", hires_img)
-
-	# return the image
+	return hires_img
 
 def main():
 	upscale("Bromo_2.jpg", 2)
