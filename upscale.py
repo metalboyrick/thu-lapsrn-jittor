@@ -1,4 +1,4 @@
-from lapsrn import *
+from lapsrn import Net
 from PIL import Image
 import jittor as jt
 import jittor.transform as transform
