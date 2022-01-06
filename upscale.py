@@ -18,7 +18,8 @@ def upscale(name, factor):
 	input_var = jt.Var(img_arr).float().view(1, -1, img_arr.shape[0], img_arr.shape[1])
 	HR_2x, HR_4x = cnn(input_var)
 
-	hi_res = jt.squeeze(HR_4x, 0)
+	hi_res = HR_4x.data[0].astype(np.float32)
+	hi_res *= 255.0
 
 	return hi_res
 
