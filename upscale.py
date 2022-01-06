@@ -6,7 +6,7 @@ import numpy as np
 import cv2
 
 def upscale(name, factor):
-	img = cv2.imread("./Bromo_2.jpg", cv2.IMREAD_GRAYSCALE)
+	img = cv2.imread(name, cv2.IMREAD_GRAYSCALE)
 
 	# load pretrained model
 	cnn = Net()
