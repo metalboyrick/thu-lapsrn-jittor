@@ -9,7 +9,7 @@ def upscale(name, factor):
 
 	# load pretrained model
 	cnn = Net()
-	cnn.load("./model_epoch_100.pth")
+	cnn.load("./model_best.pkl")
 
 	# run lapSRN
 	img = img.astype("float")
