@@ -39,7 +39,7 @@ class Net(nn.Module):
         super().__init__()
         
         self.conv_input = nn.Conv2d(1, 64, kernel_size=3, stride=1, padding=1, bias=False)
-        self.relu = nn.relu(0.2, inplace=True)
+        self.relu = nn.LeakyReLU(0.2)
         self.convt_I1 = nn.ConvTranspose(1, 1, kernel_size=4, stride=2, padding=1, bias=False)
         self.convt_R1 = nn.Conv2d(64, 1, kernel_size=3, stride=1, padding=1, bias=False)
         self.convt_F1 = self.make_layer(_Conv_Block)
