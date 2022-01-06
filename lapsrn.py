@@ -1,7 +1,8 @@
 import jittor as jt
 from jittor import nn
+from jittor import Module
 
-class _Conv_Block(jt.Module):
+class _Conv_Block(Module):
     def __init__(self):
         super().__init__()
         
@@ -34,7 +35,7 @@ class _Conv_Block(jt.Module):
         out = self.cov_block(x)
         return out
 
-class Net(nn.Module):
+class Net(Module):
     def __init__(self):
         super().__init__()
         
