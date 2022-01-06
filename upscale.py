@@ -15,13 +15,12 @@ def upscale(name, factor):
 	# run lapSRN
 	img_arr = img.astype(float)
 	img_arr = img_arr / 255.0
-	input_var = jt.Var(img_arr).float()
+	input_var = jt.Var(img_arr).float().view(1, -1, img_arr.shape[0], img_arr.shape[1])
 	HR_2x, HR_4x = cnn(input_var)
 
 	hi_res = jt.squeeze(HR_4x, 0)
-	hires_img = hi_res
 
-	return hires_img
+	return hi_res
 
 def main():
 	upscale("Bromo_2.jpg", 2)
