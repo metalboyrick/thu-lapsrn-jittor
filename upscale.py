@@ -19,11 +19,9 @@ def upscale(name, factor):
 	HR_2x, HR_4x = cnn(input_var)
 
 	hi_res = jt.squeeze(HR_4x, 0)
-	hires_img = transform.to_pil_image(hi_res)
+	hires_img = hi_res
 
-	hires_img.save(+"out.jpg")
-
-	hires_img
+	cv2.imshow("test", hires_img)
 	# return the image
 
 def main():
