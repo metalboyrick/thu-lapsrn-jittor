@@ -19,8 +19,12 @@ def upscale(name, factor):
 	HR_2x, HR_4x = cnn(input_var)
 
 	# hi_res = jt.squeeze(HR_4x, 2)
-	hi_res = np.array(HR_4x.data.astype(np.float32))
+	print("TEST!")
+	hi_res = np.array(HR_4x.data[0].astype(np.float32))
 	hi_res *= 255.0
+	hi_res[hi_res < 0.0] = 0.0
+	hi_res[hi_res > 255.0] = 255.0
+	print("TEST!!")
 
 	return hi_res
 
