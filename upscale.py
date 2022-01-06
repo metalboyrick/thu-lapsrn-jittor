@@ -29,8 +29,8 @@ def upscale(name, factor):
 	return hi_res
 
 def main():
-	upscale("Bromo_2.jpg", 2)
-	pass
+	im = upscale("Bromo_2.jpg", 2)
+	return im
 
 if __name__ == "__main__":
 	main()
