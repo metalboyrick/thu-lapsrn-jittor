@@ -22,7 +22,7 @@ def upscale(name, factor):
 
 	hires_img.save(+"out.jpg")
 
-
+	hires_img
 	# return the image
 
 def main():
