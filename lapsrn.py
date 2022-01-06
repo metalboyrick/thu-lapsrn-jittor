@@ -31,7 +31,7 @@ class _Conv_Block(Module):
             nn.LeakyReLU(0.2),
         )
         
-    def forward(self, x):
+    def execute(self, x):
         out = self.cov_block(x)
         return out
 
