@@ -54,7 +54,7 @@ class Net(Module):
         layers.append(block())
         return nn.Sequential(*layers)
     
-    def forward(self, x):    
+    def execute(self, x):    
         out = self.relu(self.conv_input(x))
         
         convt_F1 = self.convt_F1(out)
