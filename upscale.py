@@ -2,6 +2,7 @@ from lapsrn import Net
 from PIL import Image
 import jittor as jt
 import jittor.transform as transform
+import numpy as np
 
 def upscale(name, factor):
 	img = Image.open(str(name))
@@ -12,9 +13,9 @@ def upscale(name, factor):
 	cnn.load("./model_best.pkl")
 
 	# run lapSRN
-	img = img.astype("float")
-	img = img/255.0
-	input_var = jt.float32(img)
+	img_arr = np.asarray(img).astype("float")
+	img_arr = img_arr / 255.0
+	input_var = jt.float32(img_arr)
 	HR_2x, HR_4x = cnn(input_var)
 
 	hi_res = jt.squeeze(HR_4x, 0)
