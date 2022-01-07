@@ -15,6 +15,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='LapSRN Jittor Training')
 parser.add_argument("--model", type=str, default="", help="Select a trained model")
+parser.add_argument("--test_dataset", type=str, default="", help="Select a test dataset")
 parser.add_argument("--dataset", type=str, default="", help="Select a dataset")
 parser.add_argument("--batch", type=int, default=20, help="Enter a batch number (must be divisible by the number of data)")
 parser.add_argument("--epochs", type=int, default=5, help="Every n epochs save the file")
@@ -91,7 +92,7 @@ def main():
 
         if epoch % opt.epochs == 0:
             save_path = save_params(model, epoch) # save model on disk as pkl
-            pred_psnr, bc_psnr = test(save_path, "SR_testing_datasets/BSDS200")
+            pred_psnr, bc_psnr = test(save_path, opt.test_dataset)
             print(f"=== Prediction_PSNR = {pred_psnr}, Bicubic_PSNR = {bc_psnr}")
 
         # print(f'=== Epoch:{epoch} PSNR={psnr_predicted:.4f}, Best={best_psnr:.4f}')
