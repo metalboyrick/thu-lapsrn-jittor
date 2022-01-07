@@ -2,6 +2,22 @@ import jittor as jt
 from jittor import nn
 from jittor import Module
 
+import numpy as np
+
+import math
+
+# 2D bilinear kernel
+def get_upsample_filter(size):
+    factor = (size + 1) // 2
+    if size % 2 == 1:
+        center = factor - 1
+    else:
+        center = factor - 0.5
+    og = np.ogrid[:size, :size]
+    filter = (1 - abs(og[0] - center) / factor) * \
+             (1 - abs(og[1] - center) / factor)
+    return jt.Var(filter).float()
+
 class _Conv_Block(Module):
     def __init__(self):
         super().__init__()
@@ -48,6 +64,7 @@ class Net(Module):
         self.convt_I2 = nn.ConvTranspose(1, 1, kernel_size=4, stride=2, padding=1, bias=False)
         self.convt_R2 = nn.Conv2d(64, 1, kernel_size=3, stride=1, padding=1, bias=False)
         self.convt_F2 = self.make_layer(_Conv_Block)
+
         
     def make_layer(self, block):
         layers = []

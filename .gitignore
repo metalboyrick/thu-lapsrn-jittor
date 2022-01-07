@@ -1,2 +1,10 @@
 venv/
 __pycache__/
+
+SR_testing_datasets/
+SR_training_datasets/
+
+trained_models/
+
+*.zip
+*.mat
