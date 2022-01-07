@@ -84,7 +84,7 @@ def main():
     with open("out.txt", "a") as f:
         f.write(f"Epoch,Prediction PSNR, Bicubic PSNR\n")
         while(True):            
-            
+            epoch += 1
 
             # update learning rate  
             scheduler.step(epoch) 
@@ -98,7 +98,7 @@ def main():
                 print(f"=== Prediction_PSNR = {pred_psnr}, Bicubic_PSNR = {bc_psnr}")
                 f.write(f"{epoch},{pred_psnr}, {bc_psnr}\n")
 
-            epoch += 1
+            
 
         # print(f'=== Epoch:{epoch} PSNR={psnr_predicted:.4f}, Best={best_psnr:.4f}')
 
