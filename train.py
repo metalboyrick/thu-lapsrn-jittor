@@ -81,19 +81,24 @@ def main():
     prepare()
     best_psnr_diff = 0
     epoch = 0
-    while(True):            
-        epoch += 1
+    with open("out.txt", "a") as f:
+        f.write(f"Epoch,Prediction PSNR, Bicubic PSNR\n")
+        while(True):            
+            
 
-        # update learning rate  
-        scheduler.step(epoch) 
+            # update learning rate  
+            scheduler.step(epoch) 
 
-        # train model with dataset
-        train(epoch) 
+            # train model with dataset
+            train(epoch) 
 
-        if epoch % opt.epochs == 0:
-            save_path = save_params(model, epoch) # save model on disk as pkl
-            pred_psnr, bc_psnr = test(save_path, opt.test_dataset)
-            print(f"=== Prediction_PSNR = {pred_psnr}, Bicubic_PSNR = {bc_psnr}")
+            if epoch % opt.epochs == 0:
+                save_path = save_params(model, epoch) # save model on disk as pkl
+                pred_psnr, bc_psnr = test(save_path, opt.test_dataset)
+                print(f"=== Prediction_PSNR = {pred_psnr}, Bicubic_PSNR = {bc_psnr}")
+                f.write(f"{epoch},{pred_psnr}, {bc_psnr}\n")
+
+            epoch += 1
 
         # print(f'=== Epoch:{epoch} PSNR={psnr_predicted:.4f}, Best={best_psnr:.4f}')
 
