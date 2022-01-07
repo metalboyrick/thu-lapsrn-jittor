@@ -52,6 +52,10 @@ def main():
 	parser.add_argument("--cuda", type=bool, default=False,help="use CUDA")
 	opt = parser.parse_args()
 
+	if opt.cuda:
+		print("Using CUDA")
+		jt.flags.use_cuda = 1
+
 	im = upscale_from_file(opt.input, opt.scale, opt.model)
 	
 	cv2.imwrite("out.jpg", im)
