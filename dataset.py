@@ -40,7 +40,7 @@ class LapSRNDataset(Dataset):
             
             _input = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
 
-            _input = random_crop(_input, RANDOM_CROP_SIZE, RANDOM_CROP_SIZE)      # random crop the input
+            _input = random_crop(_input, rc_len, rc_len)      # random crop the input
             LR = scale_lr(_input)                       # generate lowres
             HR_2x = scale_half(_input)                  # generate 2x
 
