@@ -21,7 +21,7 @@ parser.add_argument("--batch", type=int, default=20, help="Enter a batch number 
 parser.add_argument("--epochs", type=int, default=5, help="Every n epochs save the file")
 parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
 parser.add_argument("--rclen", type=int, default=128,help="Random cut length, must be 2^n")
-parser.add_argument("--step", type=float, default=1e-4,help="LR decay step")
+parser.add_argument("--step", type=float, default=1e-6,help="LR decay step")
 parser.add_argument("--cuda", type=bool, default=False,help="use CUDA")
 opt = parser.parse_args()
 
