@@ -6,12 +6,18 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import scipy.io as sio
+import argparse
 
 def upscale_from_file(name, factor, model="./model_best.pkl"):
-	img = cv2.imread(name, cv2.IMREAD_GRAYSCALE)
-	sio.savemat('./np_matrix_input.mat', {'down':img})
-	img = sio.loadmat("./np_matrix_input.mat")['down']
-	return upscale(img, factor, model).astype(np.uint8)
+	img = cv2.imread(name, cv2.IMREAD_COLOR)
+
+	(B, G, R)= cv2.split(img)
+
+	B_r = upscale(B.astype(float), factor, model).astype(np.uint8)
+	G_r = upscale(G.astype(float), factor, model).astype(np.uint8)
+	R_r = upscale(R.astype(float), factor, model).astype(np.uint8)
+
+	return cv2.merge([B_r, G_r, R_r])
 
 def upscale(img, factor, model):
 	
@@ -39,8 +45,16 @@ def upscale(img, factor, model):
 	return hi_res
 
 def main():
-	im = upscale_from_file("Bromo_3.jpg", 2, "trained_models/lapsrn_model_epoch_10.pkl")
-	cv2.imwrite("BROMO_OUT.jpg", im)
+	parser = argparse.ArgumentParser(description='LapSRN Single Image Upscaling')
+	parser.add_argument("--model", type=str, default="./model_best.pkl", help="Select a trained model")
+	parser.add_argument("--input", type=str, default="", help="Select an input image to be enlarged")
+	parser.add_argument("--scale", type=int, default=4, help="Enlargement scale, 2 or 4")
+	parser.add_argument("--cuda", type=bool, default=False,help="use CUDA")
+	opt = parser.parse_args()
+
+	im = upscale_from_file(opt.input, opt.scale, opt.model)
+	
+	cv2.imwrite("out.jpg", im)
 
 if __name__ == "__main__":
 	main()

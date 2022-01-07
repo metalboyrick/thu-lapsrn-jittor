@@ -6,9 +6,7 @@ import random
 import numpy as np
 from util import *
 
-RANDOM_CROP_SIZE = 128
-
-
+RANDOM_CROP_SIZE = 256
 
 def random_crop(image, crop_height, crop_width):
 
@@ -30,13 +28,13 @@ def random_crop(image, crop_height, crop_width):
 
 
 class LapSRNDataset(Dataset):
-    def __init__(self, img_folder, batch_size=64):
+    def __init__(self, img_folder, rc_len=128,batch_size=64):
         super().__init__()
         self.image_filenames = [os.path.join(img_folder, x) for x in os.listdir(img_folder) if is_image_file(x)]
         
-        self.tensor4x = np.zeros((len(self.image_filenames), 1, RANDOM_CROP_SIZE, RANDOM_CROP_SIZE))
-        self.tensor2x = np.zeros((len(self.image_filenames), 1, RANDOM_CROP_SIZE // 2, RANDOM_CROP_SIZE // 2))
-        self.tensorLR = np.zeros((len(self.image_filenames), 1, RANDOM_CROP_SIZE // 4, RANDOM_CROP_SIZE // 4))
+        self.tensor4x = np.zeros((len(self.image_filenames), 1, rc_len, rc_len))
+        self.tensor2x = np.zeros((len(self.image_filenames), 1, rc_len // 2, rc_len // 2))
+        self.tensorLR = np.zeros((len(self.image_filenames), 1, rc_len // 4, rc_len // 4))
 
         for index, filename in enumerate(self.image_filenames):
             

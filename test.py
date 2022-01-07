@@ -4,6 +4,7 @@ from util import *
 from upscale import upscale
 
 import os
+import argparse
 
 def test(model, test_folder):
 
@@ -33,6 +34,26 @@ def test(model, test_folder):
     print("PSNR_predicted=", avg_psnr_pred/len(image_filenames))
     print("PSNR_bicubic=", avg_psnr_bicubic/len(image_filenames))
 
+    return avg_psnr_pred/len(image_filenames), avg_psnr_bicubic/len(image_filenames)
+
 
 if __name__ == "__main__":
-    test("trained_models/lapsrn_model_epoch_30.pkl", "SR_testing_datasets/Manga109")
+
+    # parse params
+    parser = argparse.ArgumentParser(description='LapSRN Jittor Evaluation')
+    parser.add_argument("--model", type=str, default="./model_best.pkl", help="Select a trained model")
+    parser.add_argument("--dataset", type=str, default="", help="Select a dataset")
+    parser.add_argument("--cuda", type=bool, default=False,help="use CUDA")
+
+    opt = parser.parse_args()
+    print(opt)
+
+    # some arg checks
+    if len(opt.dataset) == 0:
+         raise Exception("Please select a dataset with --dataset")
+        
+    if opt.cuda:
+        print("Using CUDA")
+        jt.flags.use_cuda = 1
+
+    test(opt.model, opt.dataset)
